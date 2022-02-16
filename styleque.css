@@ -5,6 +5,5 @@ body {
 }
  
  .cen{
-    position: absolute;
-    right: 300px;
+     margin-left: 500px;
  }
