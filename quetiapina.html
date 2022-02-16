@@ -2,14 +2,16 @@
 <html lang="en" >
   <head>
      <script src='p5.js'></script>
+
      <title>quetiapina</title>
   <link rel="stylesheet" href="./styleque.css">
   </head>
   <body>
-    <script class="cen">
-      function setup() {
-  createCanvas(500, 500);
-  
+      <div id="sketch-holder"></div>
+
+  <script>  function setup() {
+  var canvas = createCanvas(500, 500);
+  canvas.parent('sketch-holder');
 }
 
 function draw() {
@@ -49,9 +51,8 @@ if (mouseIsPressed) {
     text('quetiapina',mouseX, mouseY);
   } 
 }
+</script>
 
 
-      
-    </script>
   </body>
 </html>
