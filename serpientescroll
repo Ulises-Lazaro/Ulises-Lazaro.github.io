@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Poemas infinitos por scroll</title>
+  <style>
+    body {
+      background: black; /* fondo fijo negro */
+      color: white;
+      font-family: "Courier New", monospace;
+      padding: 20px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .poema {
+      margin-bottom: 40px;
+      white-space: pre-line; /* respeta los saltos de línea \n */
+    }
+    .titulo {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #ffcc00; /* números romanos en dorado */
+    }
+  </style>
+</head>
+<body>
+  <div id="contenedor"></div>
+
+  <script>
+    // --- listas de frases (ejemplo reducido; pon las completas aquí) ---
+    const a = ["Yo nací muerto", "Yo nací fuego cenizo", "Yo nací un noche"];
+    const b = ["y toda mi vida", "y mi corazón es una nube negra"];
+    const c = ["ha sido una melancólica ilusión", "que se aproxima"];
+    const d = ["las moscas", "los silencios", "los gritos"];
+    const e = ["sobre vuelan"];
+    const f = ["mi cuerpo vivo sólo en palabras", "la red que vive en mi cabeza"];
+    const g = ["el aire huele a flores", "la muerte no existe"];
+    const h = ["la serpiente mecánica me devora"];
+
+    function random(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // función para convertir números a romanos
+    function toRoman(num) {
+      const romans = [
+        ["M",1000],["CM",900],["D",500],["CD",400],
+        ["C",100],["XC",90],["L",50],["XL",40],
+        ["X",10],["IX",9],["V",5],["IV",4],["I",1]
+      ];
+      let result = "";
+      for (let [letter, value] of romans) {
+        while (num >= value) {
+          result += letter;
+          num -= value;
+        }
+      }
+      return result;
+    }
+
+    let contador = 1; // empieza en I
+
+    function generarPoema() {
+      const poema = 
+        random(a) + "\n" +
+        random(b) + "\n" +
+        random(c) + "\n" +
+        random(d) + "\n" +
+        random(e) + "\n" +
+        random(f) + "\n" +
+        random(g) + "\n" +
+        random(h);
+
+      // crear contenedor del poema
+      const div = document.createElement("div");
+      div.className = "poema";
+
+      // número romano arriba
+      const titulo = document.createElement("div");
+      titulo.className = "titulo";
+      titulo.textContent = toRoman(contador);
+      contador++;
+
+      div.appendChild(titulo);
+      div.appendChild(document.createTextNode(poema));
+
+      document.getElementById("contenedor").appendChild(div);
+    }
+
+    // Generar algunos poemas iniciales
+    for (let i = 0; i < 3; i++) {
+      generarPoema();
+    }
+
+    // Detectar cuando el scroll llega al final
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        generarPoema();
+      }
+    });
+  </script>
+</body>
+</html>
