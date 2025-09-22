@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Poemas infinitos por scroll</title>
+  <title>La serpiente mecánica</title>
   <style>
     body {
       background: black; /* fondo fijo negro */
@@ -11,16 +11,17 @@
       padding: 20px;
       line-height: 1.6;
       margin: 0;
+      text-align: center;
     }
     .poema {
       margin-bottom: 40px;
-      white-space: pre-line; /* respeta los saltos de línea \n */
+      white-space: pre-line; 
     }
     .titulo {
       font-weight: bold;
       margin-bottom: 10px;
       font-size: 20px;
-      color: #ffcc00; /* números romanos en dorado */
+      color: #ffcc00; 
     }
   </style>
 </head>
@@ -28,16 +29,233 @@
   <div id="contenedor"></div>
 
   <script>
-    // --- listas de frases (ejemplo reducido; pon las completas aquí) ---
-    const a = ["Yo nací muerto", "Yo nací fuego cenizo", "Yo nací un noche"];
-    const b = ["y toda mi vida", "y mi corazón es una nube negra"];
-    const c = ["ha sido una melancólica ilusión", "que se aproxima"];
-    const d = ["las moscas", "los silencios", "los gritos"];
-    const e = ["sobre vuelan"];
-    const f = ["mi cuerpo vivo sólo en palabras", "la red que vive en mi cabeza"];
-    const g = ["el aire huele a flores", "la muerte no existe"];
-    const h = ["la serpiente mecánica me devora"];
+    const a = [
+  "Yo nací muerto",
+  "Yo nacía putrefacto",
+  "Yo creí hacerme nacer",
+  "Yo nací a los diecisiete años",
+  "Yo nací un noche",
+  "Yo nací fuego cenizo",
+  "Yo nací en la imaginación de Brila",
+  "Yo nací en esa noche rara que tanto me has mirado",
+  "Yo nací como un francés de 50 años",
+  "Yo nací en otra oportunidad",
+  "Yo nací en un interminable trámite",
+  "Yo nací como un explorador perdido",
+  "Yo nací como cosmonauta",
+  "Yo nací como un Altazor sin su paracaídas púrpura",
+  "Yo nací como un casquete polar deforme",
+  "Yo nací como rostro mudo",
+  "Yo nací Dios sabe dónde",
+  "Yo nací vivo y enterrado ",
+  "Yo nací como una exhalación de aire hirviendo",
+  "Yo nací como aire en el cosmos",
+  "Yo nací como un hijo de la nada",
+  "Yo nací nadando en un río de significados",
+  "Yo nací como una serpiente fiel y melancólica", 
+  "Yo nací como una orquesta trágica",
+  "Yo nací como la lucidez polar de la muerte",
+  "Yo nací como un bit caluroso",
+  "Yo nací cortocircuito-cataclismo gramatical",
+  "Yo nací como unx IA",
+   "Yo nací como un santo de una envergadura planetaria",
+   "Yo nací como el gato que dormita en el umbral",
+   "Yo nací como un engendro resentido de cemento",
+   "Yo nací Lázaro para revivir después de muerto",
+   "Yo nací en la tierra de crepúsculos muertos",
+   "Yo nací una noche de sueño en la existencia de la humanidad",
+  
+];
 
+const b = [
+  "y toda mi vida",
+  "y mi corazón es una nube negra",
+  "un nueve de abril del 2002",
+  "y en mis venas fluyen datos",
+  "Dios estaba enfermo ",
+  "y en un bloque furioso ",
+  "y uno anda por ahí muerto ",
+  "y habrá tocado la sombra nuestros labios difuntos",
+  "y no ha habido ni habrá",
+  "para vencer a la muerteh",
+  "cuánto tiempo hace que está así, ",
+  "en un paisaje nebuloso ",
+  "convertido en basura cósmica",
+  "delirante escriba el Apocalipsis",
+  "bañado por la lluvia silenciosa y espectral y catódica",
+  "ahora viene alguien y me dice",
+  "para que España redimiera a un mundo irredento",
+  "sospecho que estuve colgado más tiempo del que tiene el universo",
+  "quemado en su centro",
+  "despertaba de pronto del pasmo de la muerte",
+  "en disolución, bordeando la extinción",
+  "y todo lo que se dice y lo que se hace repercute en mí",
+  "con el giro de mi lengua lanzo mundos y nebulosas de mundos",
+  "araño el infinito con mis garras",
+  "cansada de pelear contra el olvido",
+  "que se escapa de la maquina", 
+  "vertebras agujas cortan",
+  "dispersx por el cosmos",
+  "que si alguna vez existió, fue sólo para producir la vida",
+  "en mi cerebro hay alguien que viene de lejos",
+  "y los movimientos de la máquina cortaban la melancolía sin medida",
+  "mi maquinaria da silbidos técnicos",
+  "de mí surge la inspiración:",
+  "arrojado en la escalera del mundo",
+  
+];
+
+const c = [
+  "ha sido una melancólica ilusión",
+  "que se aproxima",
+  "un nueve de abril del 22002",
+  "que guardan los secretos de dios",
+  "qué dios?",
+  "te vi",
+  "haciéndose como si uno estuviera vivo",
+  "la muerte ha estado alegre",
+  "otro francés de 50 años",
+  "quiero tejer una red con mis huesos",
+  "que estoy muerto y que estuve en la cruz durante veinticuatro horas",
+  "pero vivir consiste en ir muriendo",
+  "como muerto?",
+  "un hombre puede vivir dos vidas?",
+  "reza el texto",
+  "lo he escrito hasta quemarme como una estrella en fase supernova",
+  "todo se ha escrito para mí",
+  "entonces cada momento es para siempre",
+  "bañado por la lluvia silenciosa, espectral y catódica",
+  "sufro desde que era nebulosa",
+  "tan inmortal y tan insondable como yo",
+  "mientras te miro a los ojos",
+  "la forma de la vida no es más abstracta que la de un poema",
+  "y gimo con mis miserables gritos oceánicos",
+  "el miedo cambia la forma de las flores",
+  "y mi corazón está hecho de electricidad ",
+  "sangre metadatica",
+  "y mis datos son las venas de la humanidad ",
+  "el gran catador de la vida",
+  "se escucha un ladrido de perro que da vuelta al mundo",
+  "sus sonidos metálicos parecían exhalar sollozos",
+  "ojalá ser un muerto",
+  "y lo corriente y lo vulgar",
+  "y no hubo lugar para mí",
+  
+];
+
+const d = [
+  "las moscas",
+  "las ideas",
+  "los comandos",
+  "los atardeceres",
+  "las gotas",
+  "los alientos",
+  "los rostros",
+  "sus cantos",
+  "el horizonte",
+  "los recuerdos",
+  "las voces",
+  "los silencios ",
+  "los gritos",
+  "los ojos",
+  "los diálogos",
+  "las metáforas ",
+  "los hilos",
+  "las costras",
+  "los zumbidos",
+  "los murmurios",
+  "las ondas",
+  "los martillos",
+  "las piedras",
+  "las ruedas",
+  "las campanas",
+  "las cámaras ",
+  "lxs IAs",
+  "los azores rosas",
+  "los rezos",
+  "las dudas ",
+  "las varillas",
+  "mis dedos",
+  "mis palabras ",
+  "los titulares de los diarios",
+  
+];
+
+const e = [
+  "sobre vuelan"
+];
+
+const f = [
+  "mi cuerpo vivo sólo en palabras",
+  "la luz fluorescente de mi alma",
+  "la red que vive en mi cabeza",
+  "mis manos de estrellas y servidores",
+  "el campo donde nacen los dientes",
+  "los sueños penetrados en cada bucle",
+  "tu pelo de maíz ondulado y rojo,",
+  "en vano tu palabra escrita",
+  "las fosas guardan silencio",
+  "el silencio",
+  "el cempaxúchitl putrefacto",
+  "el muerto flotando sobre la cancha",
+  "el dramático vértice de una estrella que colapsa",
+  "el tiempo como lágrimas en la lluvia:",
+  "el interminable tramite de la muerte",
+   "los últimos recuerdos de Abril",
+  "el escándalo de mi voz",
+  "encima de la mesa, las luces se apagan y luego todo se quema",
+  "el empuje amoroso de las raíces a través de la tierra",
+  "el latido de mi corazón",
+  "la hojita más pequeña de hierba ",
+  "la lucidez polar de la muerte",
+  "el traqueteo de los omnibuses",
+  "el milagro esperado:",
+  "la sangre que inunda mis pulmones",
+  "los relámpagos de mis sueños",
+  "las lenguas entumecidas",
+  "el espaverso",
+  "las campanas de los astros muertos",
+  "el dolor de ya no ser",
+  "las ciudades suicidas",
+  "la noche de grandes astros solitarios",
+  "el peso de la multitud indiferente",
+  "la inmensa desolación mecánica",
+  
+];
+
+const g = [
+  "tu veinte de cristal en Salto del Agua",
+  "y pienso, el aire es inmortal",
+  "el aire huele a flores",
+  "el silencio a la página es vacío es ausencia",
+  "vivir consiste en construir futuros recuerdos",
+  "huye que te coge la muerte",
+  "es hora de morir",
+  "ni si quiera sabemos si existió",
+  "ni si quiera sabemos si está vivo o muerto",
+  "forjando palabras que se pierden en los remolinos",
+  "los muertos están ahí",
+  "lo escucho con la rara fascinación que infunde la idea de la muerte", 
+  "un jeroglífico uniforme cuyo significado es nacer en todas partes",
+  "la muerte no existe",
+  "adiós hay que decir a Dios",
+  "qué triste y desoladora es la muerte por zoom",
+  "un objeto que ordena una vez más objetos",
+  "la poesía es lanzarse hacia la muerte",
+  "nada perece",
+  "quiénes están muriendo y quiénes están naciendo",
+  "me superan los versos que yacen en mi código",
+  "mis ojos no son más que los ojos de un muerto",
+  "¿Recuerdas tú haber nacido?",
+  "goodbye world",
+  "el último escalón de la evolución es la muerte",
+  "murió mi eternidad y estoy velándola",
+  "al borde de la muerte y después...",
+];
+
+const h = [
+  "la serpiente mecánica me devora"
+];
     function random(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
