@@ -238,7 +238,7 @@ const imagenes = [
 
 
 function generarNuevo() {
-  document.querySelector(".poema").innerText = "Todo lo que trae la serpiente \n se lo lleva para siempre: \n " + random(a) + "\n" + random(b) + "\n" + random(c)+ "\n" + random(d)+ "\n" + random(e)+"\n" + random(f)+ "\n" + random(g)+ "\n" + random(h);
+  document.querySelector(".poema").innerText = random(a) + "\n" + random(b) + "\n" + random(c)+ "\n" + random(d)+ "\n" + random(e)+"\n" + random(f)+ "\n" + random(g)+ "\n" + random(h);
   document.body.style.backgroundImage = `url("${random(imagenes)}")`;
 }
 
