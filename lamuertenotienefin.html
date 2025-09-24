@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La serpiente mecánica</title>
+  <style>
+    body {
+      background: black; 
+      color: white;
+      font-family: "Courier New", monospace;
+      padding: 20px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .poema {
+      margin-bottom: 40px;
+      white-space: pre-line; 
+    }
+    .titulo {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 20px;
+      transition: color 1s ease;
+      display: inline-block;
+    }
+    .epitafio {
+      font-style: italic;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="contenedor"></div>
+
+  <script>
+    // --- ARRAYS ---
+    const a = ["Yo nací muerto","Yo nacía putrefacto","Yo creí hacerme nacer","Yo nací fuego cenizo"];
+    const b = ["y toda mi vida","y mi corazón es una nube negra","y en mis venas fluyen datos"];
+    const c = ["ha sido una melancólica ilusión","que se aproxima","pero vivir consiste en ir muriendo"];
+    const d = ["las moscas","las ideas","los comandos","los atardeceres"];
+    const e = ["sobre vuelan"];
+    const f = ["mi cuerpo vivo sólo en palabras","la luz fluorescente de mi alma","el silencio"];
+    const g = ["es hora de morir","los muertos están ahí","la poesía es lanzarse hacia la muerte"];
+
+    function random(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function toRoman(num) {
+      const romans = [
+        ["M",1000],["CM",900],["D",500],["CD",400],
+        ["C",100],["XC",90],["L",50],["XL",40],
+        ["X",10],["IX",9],["V",5],["IV",4],["I",1]
+      ];
+      let result = "";
+      for (let [letter, value] of romans) {
+        while (num >= value) {
+          result += letter;
+          num -= value;
+        }
+      }
+      return result;
+    }
+
+    let contador = 1;
+
+    function generarPoema() {
+      const div = document.createElement("div");
+      div.className = "poema";
+
+      // --- Título romano ---
+      const titulo = document.createElement("div");
+      titulo.className = "titulo";
+      titulo.textContent = toRoman(contador);
+
+      // Color según etapa
+      if (contador < 15) {
+        titulo.style.color = "#ffcc00"; // oro (vida)
+      } else if (contador < 30) {
+        titulo.style.color = "#aaaaaa"; // gris (decadencia)
+      } else {
+        titulo.style.color = "#cc3333"; // rojo apagado (muerte)
+      }
+
+      // Latido que se apaga con el tiempo
+      const progreso = Math.min(contador / 50, 1); // 0 → 1
+      const maxScale = 1.2 - progreso * 0.15; // 1.2 al inicio → 1.05 al final
+      titulo.animate(
+        [
+          { transform: "scale(1)" },
+          { transform: `scale(${maxScale})` },
+          { transform: "scale(1)" }
+        ],
+        {
+          duration: 2000,
+          iterations: Infinity
+        }
+      );
+
+      div.appendChild(titulo);
+
+      // --- Probabilidad de epitafio: crece con el progreso ---
+      const epitafioProb = 0.1 + progreso * 0.6; 
+
+      if (Math.random() < epitafioProb) {
+        // epitafio único
+        const epitafio = document.createElement("div");
+        epitafio.className = "epitafio";
+        epitafio.textContent = random([a,b,c,d,e,f,g].flat());
+        div.appendChild(epitafio);
+      } else {
+        // poema normal
+        const versos = [];
+        const cantidad = Math.floor(Math.random() * 7) + 4; // 4 a 10 versos
+
+        for (let i = 0; i < cantidad; i++) {
+          let grupo;
+          if (Math.random() > progreso) {
+            grupo = [a,b,c][Math.floor(Math.random() * 3)];
+          } else {
+            grupo = [d,e,f,g][Math.floor(Math.random() * 4)];
+          }
+          versos.push(random(grupo));
+        }
+
+        div.appendChild(document.createTextNode(versos.join("\n")));
+      }
+
+      document.getElementById("contenedor").appendChild(div);
+      contador++;
+    }
+
+    // Poemas iniciales
+    for (let i = 0; i < 3; i++) {
+      generarPoema();
+    }
+
+    // Scroll infinito
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        generarPoema();
+      }
+    });
+  </script>
+</body>
+</html>
