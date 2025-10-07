@@ -21,12 +21,6 @@
       margin-bottom: 10px;
       font-size: 20px;
       transition: color 1s ease;
-      display: inline-block;
-    }
-    .epitafio {
-      font-style: italic;
-      color: #888;
-      text-align: center;
     }
   </style>
 </head>
@@ -34,19 +28,43 @@
   <div id="contenedor"></div>
 
   <script>
-    // --- ARRAYS ---
-    const a = ["Yo nací muerto","Yo nacía putrefacto","Yo creí hacerme nacer","Yo nací fuego cenizo"];
-    const b = ["y toda mi vida","y mi corazón es una nube negra","y en mis venas fluyen datos"];
-    const c = ["ha sido una melancólica ilusión","que se aproxima","pero vivir consiste en ir muriendo"];
+    const a = [
+      "Yo nací muerto", "Yo nacía putrefacto", "Yo creí hacerme nacer",
+      "Yo nací a los diecisiete años", "Yo nací un noche",
+      "Yo nací fuego cenizo", "Yo nací en la imaginación de Brila",
+      "Yo nací en esa noche rara que tanto me has mirado",
+      "Yo nací como un francés de 50 años", "Yo nací en otra oportunidad",
+      "Yo nací en un interminable trámite", "Yo nací como un explorador perdido"
+    ];
+
+    const b = [
+      "y toda mi vida", "y mi corazón es una nube negra",
+      "un nueve de abril del 2002", "y en mis venas fluyen datos",
+      "Dios estaba enfermo ", "y habrá tocado la sombra nuestros labios difuntos"
+    ];
+
+    const c = [
+      "ha sido una melancólica ilusión", "que se aproxima",
+      "un nueve de abril del 22002", "que guardan los secretos de dios",
+      "te vi", "pero vivir consiste en ir muriendo"
+    ];
+
     const d = ["las moscas","las ideas","los comandos","los atardeceres"];
     const e = ["sobre vuelan"];
-    const f = ["mi cuerpo vivo sólo en palabras","la luz fluorescente de mi alma","el silencio"];
-    const g = ["es hora de morir","los muertos están ahí","la poesía es lanzarse hacia la muerte"];
+    const f = [
+      "mi cuerpo vivo sólo en palabras","la luz fluorescente de mi alma",
+      "los sueños penetrados en cada bucle","el silencio"
+    ];
+    const g = [
+      "tu veinte de cristal en Salto del Agua","y pienso, el aire es inmortal",
+      "es hora de morir","los muertos están ahí","la poesía es lanzarse hacia la muerte"
+    ];
 
     function random(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
+    // convertir a números romanos
     function toRoman(num) {
       const romans = [
         ["M",1000],["CM",900],["D",500],["CD",400],
@@ -66,72 +84,55 @@
     let contador = 1;
 
     function generarPoema() {
+      const versos = [];
+
+      // decidir longitud del poema (4 a 10 versos)
+      const cantidad = Math.floor(Math.random() * 7) + 4;
+
+      for (let i = 0; i < cantidad; i++) {
+        // probabilidad de nacimiento → muerte cambia con el tiempo
+        const progreso = contador / 50; // escala: después de ~50 poemas es casi todo muerte
+        let grupo;
+
+        if (Math.random() > progreso) {
+          // nacimiento
+          const nac = [a, b, c];
+          grupo = nac[Math.floor(Math.random() * nac.length)];
+        } else {
+          // muerte
+          const muer = [d, e, f, g];
+          grupo = muer[Math.floor(Math.random() * muer.length)];
+        }
+
+        versos.push(random(grupo));
+      }
+
+      const poema = versos.join("\n");
+
       const div = document.createElement("div");
       div.className = "poema";
 
-      // --- Título romano ---
       const titulo = document.createElement("div");
       titulo.className = "titulo";
       titulo.textContent = toRoman(contador);
 
-      // Color según etapa
+      // color de transición: vida (oro) → gris → rojo oscuro
       if (contador < 15) {
-        titulo.style.color = "#ffcc00"; // oro (vida)
+        titulo.style.color = "#ffcc00"; // oro
       } else if (contador < 30) {
-        titulo.style.color = "#aaaaaa"; // gris (decadencia)
+        titulo.style.color = "#aaaaaa"; // gris
       } else {
-        titulo.style.color = "#cc3333"; // rojo apagado (muerte)
+        titulo.style.color = "#cc3333"; // rojo apagado
       }
 
-      // Latido que se apaga con el tiempo
-      const progreso = Math.min(contador / 50, 1); // 0 → 1
-      const maxScale = 1.2 - progreso * 0.15; // 1.2 al inicio → 1.05 al final
-      titulo.animate(
-        [
-          { transform: "scale(1)" },
-          { transform: `scale(${maxScale})` },
-          { transform: "scale(1)" }
-        ],
-        {
-          duration: 2000,
-          iterations: Infinity
-        }
-      );
+      contador++;
 
       div.appendChild(titulo);
-
-      // --- Probabilidad de epitafio: crece con el progreso ---
-      const epitafioProb = 0.1 + progreso * 0.6; 
-
-      if (Math.random() < epitafioProb) {
-        // epitafio único
-        const epitafio = document.createElement("div");
-        epitafio.className = "epitafio";
-        epitafio.textContent = random([a,b,c,d,e,f,g].flat());
-        div.appendChild(epitafio);
-      } else {
-        // poema normal
-        const versos = [];
-        const cantidad = Math.floor(Math.random() * 7) + 4; // 4 a 10 versos
-
-        for (let i = 0; i < cantidad; i++) {
-          let grupo;
-          if (Math.random() > progreso) {
-            grupo = [a,b,c][Math.floor(Math.random() * 3)];
-          } else {
-            grupo = [d,e,f,g][Math.floor(Math.random() * 4)];
-          }
-          versos.push(random(grupo));
-        }
-
-        div.appendChild(document.createTextNode(versos.join("\n")));
-      }
-
+      div.appendChild(document.createTextNode(poema));
       document.getElementById("contenedor").appendChild(div);
-      contador++;
     }
 
-    // Poemas iniciales
+    // Generar poemas iniciales
     for (let i = 0; i < 3; i++) {
       generarPoema();
     }
